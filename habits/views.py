@@ -7,7 +7,6 @@ from habits.paginators import HabitPagination
 from users.permissions import IsOwner
 
 
-
 class HabitViewSet(viewsets.ModelViewSet):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
@@ -19,7 +18,9 @@ class HabitViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """Возвращает объекты владельца и публичные объекты."""
-        return Habit.objects.filter(user=self.request.user) | Habit.objects.filter(is_public=True)
+        return Habit.objects.filter(user=self.request.user) | Habit.objects.filter(
+            is_public=True
+        )
 
     def get_permissions(self):
         """Возвращает список разрешений, требуемых для пользователей группы moderators."""
