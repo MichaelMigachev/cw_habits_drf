@@ -22,6 +22,7 @@ django-celery-beat = "^2.8.1"
 eventlet = "^0.40.0"
 requests = "^2.32.4"
 drf-yasg = "^1.21.10"
+django-cors-headers = "^4.7.0"
 
 
 [build-system]
