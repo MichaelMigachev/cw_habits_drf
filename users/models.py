@@ -13,10 +13,16 @@ class User(AbstractUser):
         unique=True, verbose_name="email", help_text="Укажите почту"
     )
     first_name = models.CharField(
-        max_length=200, verbose_name="имя", help_text="Укажите имя", **NULLABLE
+        max_length=200,
+        verbose_name="имя",
+        help_text="Укажите имя",
+        **NULLABLE
     )
     last_name = models.CharField(
-        max_length=200, verbose_name="фамилия", help_text="Укажите фамилию", **NULLABLE
+        max_length=200,
+        verbose_name="фамилия",
+        help_text="Укажите фамилию",
+        **NULLABLE
     )
     phone = models.CharField(
         max_length=15,

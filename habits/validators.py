@@ -8,7 +8,8 @@ class RewardAndRelatedValidator:
         print(habit)
         if habit.get("related_habit") and habit.get("reward"):
             raise ValidationError(
-                "Вознаграждение и связанная привычка не могут быть одновременно указаны"
+                "Вознаграждение и связанная привычка"
+                " не могут быть одновременно указаны"
             )
 
 
@@ -29,7 +30,9 @@ class RelatedAndIsGoodValidator:
     def __call__(self, habit):
         if habit.get("related_habit"):
             if not habit.get("is_good_habit"):
-                raise ValidationError("Связанная привычка должна быть приятной")
+                raise ValidationError(
+                    "Связанная привычка должна быть приятной"
+                )
 
 
 class FrequencyValidator:
@@ -41,5 +44,6 @@ class FrequencyValidator:
         if frequency is not None:
             if not (1 <= frequency <= 7):
                 raise ValidationError(
-                    "Частота выполнения привычки должна быть не реже 1 раза в 7 дней"
+                    "Частота выполнения привычки "
+                    "должна быть не реже 1 раза в 7 дней"
                 )

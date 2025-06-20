@@ -13,17 +13,22 @@ class HabitViewSet(viewsets.ModelViewSet):
     pagination_class = HabitPagination
 
     def perform_create(self, serializer):
-        """Переопределение метода для автоматической привязки владельца к создаваемому объекту."""
+        """Переопределение метода для автоматической привязки
+         владельца к создаваемому объекту."""
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
         """Возвращает объекты владельца и публичные объекты."""
-        return Habit.objects.filter(user=self.request.user) | Habit.objects.filter(
+        return Habit.objects.filter(
+            user=self.request.user) | Habit.objects.filter(
             is_public=True
         )
 
     def get_permissions(self):
-        """Возвращает список разрешений, требуемых для пользователей группы moderators."""
+        """
+        Возвращает список разрешений, требуемых для пользователей
+         группы moderators.
+        """
         if self.action == "create":
             self.permission_classes = (IsAuthenticated,)
         elif self.action in ["update", "retrieve", "list", "destroy"]:

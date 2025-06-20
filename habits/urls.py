@@ -9,5 +9,7 @@ app_name = HabitsConfig.name
 router = DefaultRouter()
 router.register(r"", HabitViewSet, basename="habits")
 
-urlpatterns = [path("public/", HabitsPublicListAPIView.as_view(), name="public-habits")]
+urlpatterns = [path("public/",
+                    HabitsPublicListAPIView.as_view(),
+                    name="public-habits")]
 urlpatterns += router.urls

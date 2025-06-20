@@ -10,5 +10,4 @@ class UserAdmin(admin.ModelAdmin):
         "is_superuser",
         "is_active",
     )
-    # list_display = ("id", "email", "username", "phone_number", "avatar", "city")
     search_fields = ("email",)

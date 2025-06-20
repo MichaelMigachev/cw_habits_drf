@@ -16,7 +16,8 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
 
     def get_permissions(self):
-        """Если действие create (создание объекта), то доступ к нему открыт для всех пользователей"""
+        """Если действие create (создание объекта),
+        то доступ к нему открыт для всех пользователей"""
         if self.action == "create":
             self.permission_classes = (AllowAny,)
         return super().get_permissions()

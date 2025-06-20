@@ -11,7 +11,7 @@ from habits.validators import (
 
 class HabitSerializer(serializers.ModelSerializer):
     """Сериализатор для модели привычек"""
-    # user = HiddenField(default=CurrentUserDefault())  # Указать поле user как HiddenField для документации
+
     class Meta:
         model = Habit
         fields = "__all__"

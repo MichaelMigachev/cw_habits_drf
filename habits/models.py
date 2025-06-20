@@ -32,11 +32,18 @@ class Habit(models.Model):
         verbose_name="Действие",
         help_text="Укажите действие, которое представляет собой привычку",
     )
-    is_good_habit = models.BooleanField(default=False, verbose_name="Приятная привычка")
-    related_habit = models.ForeignKey(
-        "self", on_delete=models.SET_NULL, verbose_name="Связанная привычка", **NULLABLE
+    is_good_habit = models.BooleanField(
+        default=False,
+        verbose_name="Приятная привычка"
     )
-    frequency = models.PositiveIntegerField(default=1, verbose_name="Периодичность")
+    related_habit = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        verbose_name="Связанная привычка",
+        **NULLABLE
+    )
+    frequency = models.PositiveIntegerField(
+        default=1,  verbose_name="Периодичность")
     reward = models.CharField(
         max_length=200,
         verbose_name="Вознаграждение",
@@ -45,7 +52,8 @@ class Habit(models.Model):
     )
     duration = models.SmallIntegerField(
         verbose_name="Время на выполнение",
-        help_text="Время, которое предположительно потратит пользователь на выполнение привычки в минутах",
+        help_text="Время, которое предположительно потратит"
+                  " пользователь на выполнение привычки в минутах",
     )
     is_public = models.BooleanField(default=False, verbose_name="Публичность")
 
@@ -54,8 +62,8 @@ class Habit(models.Model):
         verbose_name_plural = "привычки"
 
     def __str__(self):
-        return f"""Кто: {self.user}, 
-        Что должен сделать: {self.action}, 
-        Когда: {self.time}, 
-        Где: {self.place}, 
+        return f"""Кто: {self.user},
+        Что должен сделать: {self.action},
+        Когда: {self.time},
+        Где: {self.place},
         Как часто: {self.frequency}"""
