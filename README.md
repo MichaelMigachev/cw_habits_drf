@@ -10,3 +10,27 @@ HabitsApi — это API отслеживания привычек, интегр
 3. Создайте в корне проекта файл .env скопируйте в него переменные из файла .env.sample  и заполните переменные своими данными
 4. Запустите проект: python manage.py runserver
 
+
+#### Чтобы начать рассылку напоминаний в терминале запустите celery worker командой
+
+celery -A config worker -l INFO
+
+#### Команда для windows:
+
+celery -A config worker -l INFO -P eventlet
+
+
+### Запуск через Docker Compose:
+
+Для запуска всех сервисов выполните команду:
+
+docker-compose up --build
+
+Для запуска в фоновом режиме:
+
+docker-compose up -d
+
+После запуска доступность сервисов можно проверить командой:
+
+docker-compose ps
+
