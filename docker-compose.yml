@@ -45,8 +45,7 @@ services:
     tty: true
     command: poetry run celery -A config worker -P eventlet -l info
     restart: on-failure
-    volumes:
-      - .:/app
+
     depends_on:
       app:
         condition: service_healthy
@@ -62,8 +61,7 @@ services:
     tty: true
     command: poetry run celery -A config beat -l INFO
     restart: on-failure
-    volumes:
-      - .:/app
+
     depends_on:
       app:
         condition: service_healthy
