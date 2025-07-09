@@ -105,7 +105,7 @@ jobs:
             scp -o StrictHostKeyChecking=no .env ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }}:/mmv
             ssh -o StrictHostKeyChecking=no ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }} << EOF
             cd /mmv
-            docker compose pull
-            docker compose down --remove-orphans || true
-            docker compose up -d --force-recreate
+            sudo docker compose pull
+            sudo docker compose down --remove-orphans || true
+            sudo docker compose up -d --force-recreate
             EOF
