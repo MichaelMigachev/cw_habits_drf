@@ -99,7 +99,7 @@ jobs:
 
         - name: Deploy to server
           run: |
-            ssh -o StrictHostKeyChecking=no ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /mmv" || false
+            ssh -o StrictHostKeyChecking=no ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }} "sudo mkdir -p /mmv && sudo chown ${{ secrets.SECRET_USER }}:$${{ secrets.SECRET_USER }} /mmv"
             scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }}:/mmv
             scp -o StrictHostKeyChecking=no nginx.conf ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }}:/mmv
             scp -o StrictHostKeyChecking=no .env ${{ secrets.SECRET_USER }}@${{ secrets.SERVER_IP }}:/mmv
