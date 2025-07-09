@@ -28,7 +28,7 @@ services:
       retries: 5
 
   app:
-    image: mmv210575/MMV:latest
+    image: mmv210575/mmv:latest
     tty: true
     ports:
       - "8000:8000"
@@ -41,7 +41,7 @@ services:
         condition: service_healthy
 
   celery:
-    image: mmv210575/MMV:latest
+    image: mmv210575/mmv:latest
     tty: true
     command: poetry run celery -A config worker -P eventlet -l info
     restart: on-failure
@@ -58,7 +58,7 @@ services:
       - .env
 
   celery-beat:
-    image: mmv210575/MMV:latest
+    image: mmv210575/mmv:latest
     tty: true
     command: poetry run celery -A config beat -l INFO
     restart: on-failure
