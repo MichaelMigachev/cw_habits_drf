@@ -30,7 +30,9 @@ docker-compose up --build
 
 docker-compose up -d
 
+
 После запуска доступность сервисов можно проверить командой:
+
 
 docker-compose ps
 
