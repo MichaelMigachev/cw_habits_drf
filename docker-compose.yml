@@ -35,8 +35,8 @@ services:
     command: sh -c 'poetry run python manage.py migrate && poetry run gunicorn config.wsgi:application --bind 0.0.0.0:8000'
 
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+
     env_file:
       - ./.env
 
@@ -47,12 +47,9 @@ services:
     restart: on-failure
 
     depends_on:
-      app:
-        condition: service_healthy
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - app
+      - db
+      - redis
     env_file:
       - .env
 
@@ -63,12 +60,10 @@ services:
     restart: on-failure
 
     depends_on:
-      app:
-        condition: service_healthy
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - app
+      - db
+      - redis
+
     env_file:
       - .env
 
