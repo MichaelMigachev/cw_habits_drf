@@ -33,6 +33,26 @@ docker-compose up -d
 
 После запуска доступность сервисов можно проверить командой:
 
-
 docker-compose ps
 
+### Деплой
+В проекте настроен файл GitHub Actions workflow(.github/workflows/ci.yaml).
+Благодаря этому при каждом push проекта запускается линтер flake8, запускаются тесты и проект деплоится на удалённый сервер после успешного прохождения тестов.
+Для корректной работы необходимо настроить секреты в вашем репозитории в GitHub.
+1. Создайте секреты:
+CELERY_BROKER_URL,
+CELERY_RESULT_BACKEND,
+DEBUG,
+POSTGRES_HOST,
+DOCKER_HUB_ACCESS_TOKEN,
+DOCKER_HUB_USER_NAME,
+POSTGRES_DB,
+POSTGRES_PASSWORD,
+POSTGRES_USER,
+POSTGRES_PORT,
+SECRET_KEY,
+SERVER_IP,
+SSH_KEY,
+SECRET_USER,
+TELEGRAM_TOKEN
+2. В сервисах 'app', 'celery', 'celery-beat' в строке image укажите свой DOCKER_HUB_USER_NAME
