@@ -1,0 +1,83 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:latest
+    restart: on-failure
+    expose:
+      - "6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+
+  db:
+    image: postgres:16
+    restart: on-failure
+    env_file:
+      - .env
+    expose:
+      - "5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "-c", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: mmv210575/mmv:latest
+    tty: true
+    ports:
+      - "8000:8000"
+    command: sh -c 'poetry run python manage.py migrate && poetry run gunicorn config.wsgi:application --bind 0.0.0.0:8000'
+
+    depends_on:
+      - db
+
+    env_file:
+      - ./.env
+
+  celery:
+    image: mmv210575/mmv:latest
+    tty: true
+    command: poetry run celery -A config worker -P eventlet -l info
+    restart: on-failure
+
+    depends_on:
+      - app
+      - db
+      - redis
+    env_file:
+      - .env
+
+  celery-beat:
+    image: mmv210575/mmv:latest
+    tty: true
+    command: poetry run celery -A config beat -l INFO
+    restart: on-failure
+
+    depends_on:
+      - app
+      - db
+      - redis
+
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - '80:80'
+    depends_on:
+      - app
+
+
+volumes:
+  pg_data:
+  static_volume:
+  redis_data:
